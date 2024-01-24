@@ -1,13 +1,14 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import TaskModal from "../TaskModal/TaskModal";
 import TaskSearch from "./TaskSearch";
 
-export default function TaskHeader() {
+export default function TaskHeader({ setTasks, tasks }) {
   const [showModal, closeModal] = useState(false);
 
   return (
     <>
-      {showModal && <TaskModal onClose={closeModal} />}
+      {showModal && <TaskModal onClose={closeModal} setTasks={setTasks} tasks={tasks} />}
       <div className="mb-14 items-center justify-between sm:flex">
         <h2 className="text-2xl font-semibold max-sm:mb-4">Your Tasks</h2>
         <div className="flex items-center space-x-5">

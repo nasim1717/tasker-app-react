@@ -1,3 +1,5 @@
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Tasks from "./Tasks/Tasks";
 import Footer from "./components/Footer/Footer";
 import HeroContent from "./components/HeroContent/HeroContent";
@@ -13,8 +15,8 @@ export default function App() {
       <div className="container mx-auto">
         <Tasks />
       </div>
-
       <Footer />
+      <ToastContainer />
     </>
   );
 }

@@ -1,9 +1,7 @@
-import { useState } from "react";
-import taskData from "../data/data.json";
+/* eslint-disable react/prop-types */
 import TasksList from "./TasksList";
 
-export default function TaskTable() {
-  const [tasks, setTasks] = useState(taskData);
+export default function TaskTable({ tasks }) {
   return (
     <table className="table-fixed overflow-auto xl:w-full">
       <thead>
