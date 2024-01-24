@@ -1,7 +1,20 @@
+import Tasks from "./Tasks/Tasks";
+import Footer from "./components/Footer/Footer";
+import HeroContent from "./components/HeroContent/HeroContent";
+import Navbar from "./components/Navbar/Navbar";
+
 export default function App() {
   return (
     <>
-      <div className="text-2xl text-red-400">This taske page </div>
+      <Navbar />
+      <div className="flex justify-center items-center">
+        <HeroContent />
+      </div>
+      <div className="container mx-auto">
+        <Tasks />
+      </div>
+
+      <Footer />
     </>
   );
 }
