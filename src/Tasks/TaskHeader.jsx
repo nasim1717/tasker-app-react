@@ -4,11 +4,16 @@ import { useTasks } from "../context/Context";
 import TaskSearch from "./TaskSearch";
 
 export default function TaskHeader() {
-  const { setTasks, tasks, closeModal, showModal } = useTasks();
+  const { dispatch, tasks, closeModal, showModal } = useTasks();
 
   const handleAllDelete = () => {
     if (confirm(`Are your sure delete all the tasks`)) {
-      setTasks([]);
+      dispatch({
+        type: "DELETE_ALL",
+        payload: {
+          data: [],
+        },
+      });
     }
   };
 

@@ -1,11 +1,24 @@
+import { useState } from "react";
 import { useTasks } from "../context/Context";
 
+let debounceTime;
 /* eslint-disable react/prop-types */
 export default function TaskSearch() {
-  const { setSearchText, searchText } = useTasks();
+  const { setSearchText } = useTasks();
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (event) => {
     event.preventDefault();
+  };
+
+  const debounceSearch = (value, delay) => {
+    setSearchTerm(value);
+    if (debounceTime) {
+      clearTimeout(debounceTime);
+    }
+    debounceTime = setTimeout(() => {
+      setSearchText(value);
+    }, delay);
   };
 
   return (
@@ -13,8 +26,8 @@ export default function TaskSearch() {
       <div className="flex">
         <div className="relative overflow-hidden rounded-lg text-gray-50 md:min-w-[380px] lg:min-w-[440px]">
           <input
-            onChange={(e) => setSearchText(e.target.value)}
-            value={searchText}
+            onChange={(e) => debounceSearch(e.target.value, 500)}
+            value={searchTerm}
             type="search"
             id="search-dropdown"
             className="z-20 block w-full bg-gray-800 px-4 py-2 pr-10 focus:outline-none"

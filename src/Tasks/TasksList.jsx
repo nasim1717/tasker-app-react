@@ -4,7 +4,7 @@ import TaskTags from "./TaskTags";
 
 /* eslint-disable react/prop-types */
 export default function TasksList({ task }) {
-  const { closeModal, setUpdateData, tasks, setTasks } = useTasks();
+  const { closeModal, setUpdateData, dispatch } = useTasks();
 
   const handleEdit = (data) => {
     setUpdateData(data);
@@ -14,21 +14,18 @@ export default function TasksList({ task }) {
   const handleDelete = (id, title) => {
     const message = `Are you sure ${title} task delete`;
     if (confirm(message)) {
-      setTasks(tasks.filter((item) => item.id !== id));
+      dispatch({
+        type: "DELETE",
+        payload: {
+          id: id,
+        },
+      });
       toast.success(`Successfully Delete Task`);
     }
   };
 
   const handleFavourite = (id) => {
-    console.log({ id });
-    setTasks(
-      tasks.map((item) => {
-        if (item.id === id) {
-          return { ...item, favourite: !item.favourite };
-        }
-        return item;
-      })
-    );
+    dispatch({ type: "FAVOURITE", payload: { id: id } });
   };
 
   return (

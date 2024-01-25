@@ -15,10 +15,9 @@ export default function TaskTable() {
   } else {
     content = tasks.map((task) => <TasksList key={task.id} task={task} />);
   }
-
   return (
     <>
-      {content.length > 0 ? (
+      {content.filter(Boolean).length > 0 ? (
         <table className="table-fixed overflow-auto xl:w-full">
           <thead>
             <tr>

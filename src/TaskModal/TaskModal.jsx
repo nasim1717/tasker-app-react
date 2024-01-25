@@ -7,7 +7,7 @@ import TaskModalFooter from "./TaskModalFooter";
 import TaskModalInputFields from "./TaskModalInputFields";
 
 export default function TaskModal() {
-  const { closeModal, setTasks, tasks, updateData, setUpdateData } = useTasks();
+  const { closeModal, dispatch, tasks, updateData, setUpdateData } = useTasks();
 
   const initialFormData = updateData
     ? updateData
@@ -23,19 +23,23 @@ export default function TaskModal() {
       });
     } else {
       if (updateData) {
-        setTasks(
-          tasks.map((item) => {
-            if (item.id === updateData.id) {
-              return { ...taskFormData };
-            }
-            return item;
-          })
-        );
+        dispatch({
+          type: "UPDATE_TASK",
+          payload: {
+            id: taskFormData.id,
+            data: taskFormData,
+          },
+        });
         toast.success("Succesfully updated task", {
           position: "top-right",
         });
       } else {
-        setTasks([...tasks, { ...taskFormData }]);
+        dispatch({
+          type: "ADD_TASK",
+          payload: {
+            data: taskFormData,
+          },
+        });
         toast.success("Succesfully created a new task", {
           position: "top-right",
         });
