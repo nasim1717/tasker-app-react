@@ -1,32 +1,27 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { getNextId } from "../utils/utils";
+import { useTasks } from "../context/Context";
+import { getNextId, inputValidationCheck } from "../utils/utils";
 import TaskModalFooter from "./TaskModalFooter";
 import TaskModalInputFields from "./TaskModalInputFields";
 
-export default function TaskModal({ onClose, setTasks, tasks, updateData, setUpdateData }) {
-  const initialData = updateData
+export default function TaskModal() {
+  const { closeModal, setTasks, tasks, updateData, setUpdateData } = useTasks();
+
+  const initialFormData = updateData
     ? updateData
     : { id: getNextId(tasks), title: "", description: "", tags: "", priority: "" };
-  const [taskFormData, setTaskFormData] = useState(initialData);
 
-  let validtationFlag = false;
+  const [taskFormData, setTaskFormData] = useState(initialFormData);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    for (const [key, value] of Object.entries(taskFormData)) {
-      if (key === "id" || key === "favourite") {
-        continue;
-      }
-      if (!value.trim()) {
-        validtationFlag = true;
-        toast.error("Please fill up the all input fields", {
-          position: "top-right",
-        });
-        break;
-      }
-    }
-    if (!validtationFlag) {
+    if (!inputValidationCheck(taskFormData)) {
+      toast.error("Please fill up the all input fields", {
+        position: "top-right",
+      });
+    } else {
       if (updateData) {
         setTasks(
           tasks.map((item) => {
@@ -46,7 +41,7 @@ export default function TaskModal({ onClose, setTasks, tasks, updateData, setUpd
         });
       }
       setUpdateData(null);
-      onClose(false);
+      closeModal(false);
     }
   };
   return (
@@ -60,11 +55,7 @@ export default function TaskModal({ onClose, setTasks, tasks, updateData, setUpd
             {updateData ? "Update Task" : "Add New Task"}
           </h2>
           <TaskModalInputFields taskFormData={taskFormData} setTaskFormData={setTaskFormData} />
-          <TaskModalFooter
-            onClose={onClose}
-            updateData={updateData}
-            setUpdateData={setUpdateData}
-          />
+          <TaskModalFooter />
         </form>
       </div>
     </div>

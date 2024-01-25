@@ -1,8 +1,11 @@
+import { useTasks } from "../context/Context";
+
 /* eslint-disable react/prop-types */
-export default function TaskSearch({ setSearchText, searchText }) {
+export default function TaskSearch() {
+  const { setSearchText, searchText } = useTasks();
+
   const handleSearch = (event) => {
     event.preventDefault();
-    setSearchText(searchText);
   };
 
   return (

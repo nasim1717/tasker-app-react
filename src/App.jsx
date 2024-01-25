@@ -4,19 +4,22 @@ import Tasks from "./Tasks/Tasks";
 import Footer from "./components/Footer/Footer";
 import HeroContent from "./components/HeroContent/HeroContent";
 import Navbar from "./components/Navbar/Navbar";
+import TasksProvider from "./context/Context";
 
 export default function App() {
   return (
     <>
-      <Navbar />
-      <div className="flex justify-center items-center">
-        <HeroContent />
-      </div>
-      <div className="container mx-auto">
-        <Tasks />
-      </div>
-      <Footer />
-      <ToastContainer />
+      <TasksProvider>
+        <Navbar />
+        <div className="flex justify-center items-center">
+          <HeroContent />
+        </div>
+        <div className="container mx-auto">
+          <Tasks />
+        </div>
+        <Footer />
+        <ToastContainer />
+      </TasksProvider>
     </>
   );
 }

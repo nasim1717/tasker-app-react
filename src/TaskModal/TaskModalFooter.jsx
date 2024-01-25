@@ -1,9 +1,14 @@
+import { useTasks } from "../context/Context";
+
 /* eslint-disable react/prop-types */
-export default function TaskModalFooter({ onClose, updateData, setUpdateData }) {
+export default function TaskModalFooter() {
+  const { closeModal, updateData, setUpdateData } = useTasks();
+
   const handleClose = () => {
     setUpdateData(null);
-    onClose(false);
+    closeModal(false);
   };
+
   return (
     <div className="mt-16 flex justify-center lg:mt-20">
       <button

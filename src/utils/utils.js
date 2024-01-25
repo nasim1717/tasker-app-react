@@ -6,4 +6,17 @@ export const getNextId = (data) => {
     return maxId + 1;
 };
 
+export const inputValidationCheck = (formData) => {
+    let validate = true;
+    for (const [key, value] of Object.entries(formData)) {
+        if (key === "id" || key === "favourite") {
+            continue;
+        }
+        if (!value.trim()) {
+            validate = false
+            break
+        }
 
+    }
+    return validate;
+}

@@ -1,38 +1,23 @@
 /* eslint-disable react/prop-types */
+import { useTasks } from "../context/Context";
 import TasksList from "./TasksList";
 
-export default function TaskTable({ tasks, onClose, setUpdateData, setTasks, searchText }) {
+export default function TaskTable() {
+  const { tasks, searchText } = useTasks();
+
   let content = null;
   if (searchText) {
     content = tasks.map((task) => {
       if (task.title.toLowerCase().includes(searchText.toLowerCase())) {
-        return (
-          <TasksList
-            key={task.id}
-            task={task}
-            onClose={onClose}
-            setUpdateData={setUpdateData}
-            tasks={tasks}
-            setTasks={setTasks}
-          />
-        );
+        return <TasksList key={task.id} task={task} />;
       }
     });
   } else {
-    content = tasks.map((task) => (
-      <TasksList
-        key={task.id}
-        task={task}
-        onClose={onClose}
-        setUpdateData={setUpdateData}
-        tasks={tasks}
-        setTasks={setTasks}
-      />
-    ));
+    content = tasks.map((task) => <TasksList key={task.id} task={task} />);
   }
+
   return (
     <>
-      {" "}
       {content.length > 0 ? (
         <table className="table-fixed overflow-auto xl:w-full">
           <thead>

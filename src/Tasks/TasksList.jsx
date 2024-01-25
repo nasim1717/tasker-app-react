@@ -1,11 +1,14 @@
 import { toast } from "react-toastify";
+import { useTasks } from "../context/Context";
 import TaskTags from "./TaskTags";
 
 /* eslint-disable react/prop-types */
-export default function TasksList({ task, onClose, setUpdateData, tasks, setTasks }) {
+export default function TasksList({ task }) {
+  const { closeModal, setUpdateData, tasks, setTasks } = useTasks();
+
   const handleEdit = (data) => {
     setUpdateData(data);
-    onClose(true);
+    closeModal(true);
   };
 
   const handleDelete = (id, title) => {

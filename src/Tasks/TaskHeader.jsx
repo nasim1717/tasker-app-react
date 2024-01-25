@@ -1,17 +1,11 @@
 /* eslint-disable react/prop-types */
 import TaskModal from "../TaskModal/TaskModal";
+import { useTasks } from "../context/Context";
 import TaskSearch from "./TaskSearch";
 
-export default function TaskHeader({
-  setTasks,
-  tasks,
-  onClose,
-  showModal,
-  updateData,
-  setUpdateData,
-  setSearchText,
-  searchText,
-}) {
+export default function TaskHeader() {
+  const { setTasks, tasks, closeModal, showModal } = useTasks();
+
   const handleAllDelete = () => {
     if (confirm(`Are your sure delete all the tasks`)) {
       setTasks([]);
@@ -20,21 +14,13 @@ export default function TaskHeader({
 
   return (
     <>
-      {showModal && (
-        <TaskModal
-          onClose={onClose}
-          setTasks={setTasks}
-          tasks={tasks}
-          updateData={updateData}
-          setUpdateData={setUpdateData}
-        />
-      )}
+      {showModal && <TaskModal />}
       <div className="mb-14 items-center justify-between sm:flex">
         <h2 className="text-2xl font-semibold max-sm:mb-4">Your Tasks</h2>
         <div className="flex items-center space-x-5">
-          <TaskSearch setSearchText={setSearchText} searchText={searchText} />
+          <TaskSearch />
           <button
-            onClick={() => onClose(true)}
+            onClick={() => closeModal(true)}
             className="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold"
           >
             Add Task
