@@ -1,9 +1,17 @@
-export default function TaskSearch() {
+/* eslint-disable react/prop-types */
+export default function TaskSearch({ setSearchText, searchText }) {
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setSearchText(searchText);
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSearch}>
       <div className="flex">
         <div className="relative overflow-hidden rounded-lg text-gray-50 md:min-w-[380px] lg:min-w-[440px]">
           <input
+            onChange={(e) => setSearchText(e.target.value)}
+            value={searchText}
             type="search"
             id="search-dropdown"
             className="z-20 block w-full bg-gray-800 px-4 py-2 pr-10 focus:outline-none"

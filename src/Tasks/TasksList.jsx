@@ -1,13 +1,39 @@
+import { toast } from "react-toastify";
 import TaskTags from "./TaskTags";
 
 /* eslint-disable react/prop-types */
-export default function TasksList({ task }) {
+export default function TasksList({ task, onClose, setUpdateData, tasks, setTasks }) {
+  const handleEdit = (data) => {
+    setUpdateData(data);
+    onClose(true);
+  };
+
+  const handleDelete = (id, title) => {
+    const message = `Are you sure ${title} task delete`;
+    if (confirm(message)) {
+      setTasks(tasks.filter((item) => item.id !== id));
+      toast.success(`Successfully Delete Task`);
+    }
+  };
+
+  const handleFavourite = (id) => {
+    console.log({ id });
+    setTasks(
+      tasks.map((item) => {
+        if (item.id === id) {
+          return { ...item, favourite: !item.favourite };
+        }
+        return item;
+      })
+    );
+  };
+
   return (
     <tr
       key={task.id}
       className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2"
     >
-      <td>
+      <td onClick={() => handleFavourite(task.id)} className="cursor-pointer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="icon icon-tabler icon-tabler-star"
@@ -34,8 +60,12 @@ export default function TasksList({ task }) {
       <td className="text-center">{task?.priority}</td>
       <td>
         <div className="flex items-center justify-center space-x-3">
-          <button className="text-red-500">Delete</button>
-          <button className="text-blue-500">Edit</button>
+          <button onClick={() => handleDelete(task.id, task.title)} className="text-red-500">
+            Delete
+          </button>
+          <button onClick={() => handleEdit(task)} className="text-blue-500">
+            Edit
+          </button>
         </div>
       </td>
     </tr>
