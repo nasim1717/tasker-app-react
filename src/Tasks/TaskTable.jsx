@@ -15,6 +15,7 @@ export default function TaskTable() {
   } else {
     content = tasks.map((task) => <TasksList key={task.id} task={task} />);
   }
+
   return (
     <>
       {content.filter(Boolean).length > 0 ? (

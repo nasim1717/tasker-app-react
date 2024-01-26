@@ -20,3 +20,4 @@ export const inputValidationCheck = (formData) => {
     }
     return validate;
 }
+
